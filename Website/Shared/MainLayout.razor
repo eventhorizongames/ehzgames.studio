@@ -24,7 +24,19 @@
 
     <MudMainContent>
         <MudContainer> @Body </MudContainer>
+    
+        <MudContainer > 
+            <footer style="text-align:center; padding: 3rem 0;">
+                <div>All Rights Reserved</div>
+                <div>
+                    <MudLink Href="/privacy-policy">@Localizer["Privacy Policy"]</MudLink> |
+                    <MudLink Href="/terms-of-service">@Localizer["Terms of Service"]</MudLink> |
+                    <MudLink Href="mailto:mail+marketing@ehzgames.studio">@Localizer["Contact Us"]</MudLink>
+                </div>
+            </footer>
+        </MudContainer>
     </MudMainContent>
+
 </MudLayout>
 
 @code {

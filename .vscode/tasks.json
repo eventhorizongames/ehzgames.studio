@@ -10,22 +10,7 @@
             ],
             "args": [
                 "build",
-                "${workspaceFolder}/Website.sln",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "publish",
-            "command": "dotnet",
-            "type": "process",
-            "dependsOn": [
-                "format"
-            ],
-            "args": [
-                "publish",
-                "${workspaceFolder}/Website.sln",
+                "${workspaceFolder}",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -42,7 +27,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/Website.sln"
+                "${workspaceFolder}/Server/Server.csproj"
             ],
             "problemMatcher": "$msCompile"
         },

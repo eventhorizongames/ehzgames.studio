@@ -1,4 +1,4 @@
-# EventHorizon Platform Docs
+# EventHorizon Games Studio Website
 
 ## About
 

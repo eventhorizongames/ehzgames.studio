@@ -62,7 +62,8 @@ a {
     text-transform: var(--mud-typography-body1-text-transform);
 }
 
-a:hover {
+a:hover,
+a:focus {
     color: var(--mud-palette-primary-light) !important;
     text-decoration: underline;
 }

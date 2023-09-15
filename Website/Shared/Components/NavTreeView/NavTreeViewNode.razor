@@ -17,16 +17,7 @@ else
     <MudNavLink Href="@GetNodeHref()"
                 Class="@GetNavLinkClass()"
                 Icon="@GetIconClass()"
-                OnClick="HandleClickOfNode"
                 data-selector="tree-node-text">
-        @* @if (IsParentNode)
-        {
-            <MudIcon Icon="@GetExpandedIconClass()" />
-        }
-        @if (Node.IconCssClass != null)
-        {
-            <MudIcon Icon="@GetIconClass()" />
-        } *@
         @Node.Text
     </MudNavLink>
 }

@@ -68,7 +68,10 @@ public class StandardPageMetadataRepository : PageMetadataRepository
                 {
                     var pageMetadataAttribute =
                         typeInfo.GetCustomAttribute<PageMetadataAttribute>();
-                    model.Title = pageMetadataAttribute?.Title ?? typeInfo.Name;
+                    model.Title = string.IsNullOrEmpty(pageMetadataAttribute?.Title)
+                        ? typeInfo.Name
+                        : pageMetadataAttribute.Title;
+                    model.Order = pageMetadataAttribute?.Order ?? 0;
                 }
 
                 model.Route = routeAttribute.Template;
@@ -77,7 +80,9 @@ public class StandardPageMetadataRepository : PageMetadataRepository
             }
         }
 
-        return new ConcurrentDictionary<string, PageMetadataModel>(pageList);
+        return new ConcurrentDictionary<string, PageMetadataModel>(
+            pageList.OrderBy(a => a.Value.Order)
+        );
     }
 
     private static PageNavigation BuildPageNavigation(

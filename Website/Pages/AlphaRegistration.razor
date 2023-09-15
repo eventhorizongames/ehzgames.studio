@@ -1,0 +1,46 @@
+@page "/landing"
+@inject Localizer<SharedResource> Localizer
+
+<PageTitle>@Localizer["EventHorizon Games Studio"]</PageTitle>
+
+<div class="registration">
+
+    <h2>@Localizer["EventHorizon"]</h2>
+    <div style="font-size: 2rem; padding-bottom: 2rem">
+        @Localizer["Game Development Platform"]
+    </div>
+
+    <p style="padding-bottom: 1rem">
+        @Localizer["Request Access and begin your own journey in Game Development."]
+    </p>
+    <div class="registration__call-to-action">
+        <!-- Register Button -->
+        <a class="link__element" href="@GlobalPageConfig.GameDevelopmentPlatformLink"
+            title="@Localizer["Click here to request Access to the Alpha!"]" target="_blank">
+            <span class="registration__link-continer">
+                @Localizer["Request Alpha Access"]
+            </span>
+        </a>
+        <!-- Platform Details -->
+        <a class="link__element" href="/game-development-platform"
+            title="@Localizer["Read up on the Platform infrastructure here."]">
+            <span class="registration__link-continer">
+                @Localizer["Platform Details"]
+            </span>
+        </a>
+    </div>
+</div>
+
+<style>
+    .registration__call-to-action {
+        display: flex;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .registration__link-continer {
+
+        padding: 1rem;
+        border: 1px solid #ccc;
+    }
+</style>

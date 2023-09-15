@@ -1,0 +1,59 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "dependsOn": [
+                "format"
+            ],
+            "args": [
+                "build",
+                "${workspaceFolder}/Website.sln",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "dependsOn": [
+                "format"
+            ],
+            "args": [
+                "publish",
+                "${workspaceFolder}/Website.sln",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "dependsOn": [
+                "format"
+            ],
+            "args": [
+                "watch",
+                "run",
+                "--project",
+                "${workspaceFolder}/Website.sln"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "format",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "csharpier",
+                "."
+            ],
+        }
+    ]
+}

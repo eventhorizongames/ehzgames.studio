@@ -1,0 +1,32 @@
+﻿@inherits NavTreeViewNodeModel
+
+
+@if (IsParentNode)
+{
+    <MudNavGroup Title="@Node.Text" Expanded="@Node.IsExpanded">
+        @foreach (var child in Node.Children)
+        {
+            <NavTreeViewNode Node="@child"
+                            OnChanged="OnChanged"
+                            OnNodeClicked="OnNodeClicked"/>
+        }
+    </MudNavGroup>
+}
+else 
+{
+    <MudNavLink Href="@GetNodeHref()"
+                Class="@GetNavLinkClass()"
+                Icon="@GetIconClass()"
+                OnClick="HandleClickOfNode"
+                data-selector="tree-node-text">
+        @* @if (IsParentNode)
+        {
+            <MudIcon Icon="@GetExpandedIconClass()" />
+        }
+        @if (Node.IconCssClass != null)
+        {
+            <MudIcon Icon="@GetIconClass()" />
+        } *@
+        @Node.Text
+    </MudNavLink>
+}

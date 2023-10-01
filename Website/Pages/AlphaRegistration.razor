@@ -1,12 +1,15 @@
 @page "/landing"
 @inject Localizer<SharedResource> Localizer
 
-<PageTitle>@Localizer["EventHorizon Games Studio"]</PageTitle>
+<PageTitle>
+    @Localizer["EventHorizon Games Studio"]
+</PageTitle>
 
 <div class="registration">
 
     <h2>@Localizer["EventHorizon"]</h2>
-    <div style="font-size: 2rem; padding-bottom: 2rem">
+
+    <div style="font-size: 2rem;">
         @Localizer["Game Development Platform"]
     </div>
 
@@ -15,19 +18,22 @@
     </p>
     <div class="registration__call-to-action">
         <!-- Register Button -->
-        <a class="link__element" href="@GlobalPageConfig.GameDevelopmentPlatformLink"
+        <a class="link__element" href="@($"{GlobalPageConfig.GameDevelopmentPlatformLink}signup")"
             title="@Localizer["Click here to request Access to the Alpha!"]" target="_blank">
-            <span class="registration__link-continer">
+            <span class="registration__link-container">
                 @Localizer["Request Alpha Access"]
             </span>
         </a>
-        <!-- Platform Details -->
-        <a class="link__element" href="/game-development-platform"
-            title="@Localizer["Read up on the Platform infrastructure here."]">
-            <span class="registration__link-continer">
-                @Localizer["Platform Details"]
-            </span>
-        </a>
+        @if (!HidePlatformDetailsLink)
+        {
+            <!-- Platform Details -->
+            <a class="link__element" href="/game-development-platform"
+                title="@Localizer["Read up on the Platform infrastructure here."]">
+                <span class="registration__link-container">
+                    @Localizer["Platform Details"]
+                </span>
+            </a>
+        }
     </div>
 </div>
 
@@ -38,9 +44,18 @@
         padding: 1rem;
     }
 
-    .registration__link-continer {
-
+    .registration__link-container {
         padding: 1rem;
         border: 1px solid #ccc;
     }
+
+    .registration__link-container:hover,
+    a:focus .registration__link-container {
+        background-color: rgba(39, 39, 47, 1);
+    }
 </style>
+
+@code {
+    [Parameter]
+    public bool HidePlatformDetailsLink { get; set; }
+}

@@ -1,109 +1,199 @@
 @page "/game-development-platform"
 @attribute [Page]
-@attribute [PageMetadata(Order = 100, Title = "Platform")]
+@attribute [PageMetadata(Title = "Development Platform")]
 @inherits PageMetadataBase
 
-<PageTitle>@Localizer["EventHorizon - Game Development Platform"]</PageTitle>
+<PageTitle>
+    @Localizer["EventHorizon - Game Development Platform"]
+</PageTitle>
 
+<div>
     <h1>@Localizer["EventHorizon"]</h1>
-<div style="font-size: 2rem; padding-bottom: 2rem">
-    @Localizer["Game Development Platform"]
+
+    <div style="font-size: 2rem;">
+        @Localizer["Game Development Platform"]
+    </div>
 </div>
 
-<div style="border: 1px solid white; padding: 1rem;">
-    <AlphaRegistration />
+<div style="margin: 2rem 0; border: 1px solid white; padding: 1rem;">
+    <AlphaRegistration HidePlatformDetailsLink="true" />
 </div>
 
 <h2 id="what-is-the-eventhorizon-game-development-platform">What is the EventHorizon Game Development Platform</h2>
 
-<p>This is a set of micro-services that can be used to create any type of game, with an emphasis on Multiplayer and
-    world areas with an easy to use user interface.</p>
-
-<h2 id="architecture-overview">Architecture Overview</h2>
-
-<p>The architecture is broken up into multiple services/servers, giving you a managed environment to create a multiple
-    player game, or single player if you so wish, all bundled into an easy to use platform to create any game you wish.
+<p>
+    The EventHorizon Game Development Platform is a service provider for a standard collection of game development
+    infrastructure. The platform provides a set of services that can be used to create a game.
+    The platform is designed to be a managed service, allowing for a game developer to focus on the game development and
+    not the infrastructure.
 </p>
 
-<h3 id="high-level-platform-architecture">High-Level Platform Architecture</h3>
+<p>
+    The Platform provides a set of tools to help with the development of the game, like a browser based editor, and a
+    set of tools to help with the development of the game.
+    And as the platform is shared between owners the distribution of the game is also managed by the platform, giving
+    every game a shared user base.
+</p>
 
-<p><img src="/image/architecture/GameDevPlatform.png" alt="Game Development Platform Architecture Diagram"></p>
+<h2 id="infrastructure-overview">Infrastructure Overview</h2>
 
-<p>The platform is deployed on a Kubernetes Cluster, this give the platform the flexibility to deploy multiple platforms
-    at once for completely different users. Built into the infrastructure are Platform provided services; the Cloud
-    Platform, Identity Server and Monitoring are all shared by the Game Platforms.</p>
+<p>
+    The infrastructure is broken up into multiple levels. The platform is broken up into to Game Platform and Base
+    Infrastructure services.
+    The Games Platform are managed service providing an Editor and Distribution network for a developed game. The
+    Base
+    Infrastructure are shared services that all Game Platform as built on top of.
+</p>
 
-<p>This setup allows for the separation user specific instances, but also allowing for efficient usage of raw compute
-    resources. Using Kubernetes as the infrastructure, the platform is also able to do rolling updates, this allows for
-    near zero downtime of updates to different parts of the infrastructure and services.</p>
+<h3 id="high-level-platform-infrastructure">High-Level Platform Infrastructure</h3>
 
-<p>The applications on the platform have been developed with this architecture in mind, so lost connections will auto
-    reconnect.</p>
+<a href="/images/Platform/PlatformInfrastructure.png" target="_blank" title="Open in new tab to view">
+    <img style="padding: 1rem 0;" class="--full-width" src="/images/Platform/PlatformInfrastructure.png"
+        alt="Game Development Platform Infrastructure Diagram" />
+</a>
 
-<h3 id="identity-service">Identity Service</h3>
+<p>
+    The Platform is deployed on a Kubernetes Cluster,
+    this give the platform the flexibility to deploy multiple Owner Platforms
+    managed by completely different users.
+    Also built into the infrastructure is Platform provided services; the Cloud Platform,
+    Identity Server and Monitoring. These services are used by all Owner Platforms, giving a shared user base and
+    allowing for a single login to all Owner Platforms.
+</p>
 
-<p>The Identity Service is a stand-alone service that controls the Authentication and Authorization of all the Platform
-    services, be it player or server-to-server communication. The Identity Service provided Login functionality for the
-    players and administrators allowing for authorization of roles to be managed by a central service.</p>
+<p>
+    This setup allows for the separation game specific instances, also allowing for efficient usage of raw compute
+    resources. Using Kubernetes also enables rolling updates to an owners platform,
+    giving a near zero downtime of the infrastructure and services.
+</p>
+
+<h2 id="platform-infrastructure-layer">Platform Infrastructure Layer</h2>
+
+<p>
+    The Platform Infrastructure layer is the base layer of the platform, this layer is shared between all Owner
+    Platforms.
+    This layer contains the Cloud Platform, Identity Server, Monitoring services and any other shared services.
+</p>
+
+<h3 id="identity-service">Identity Management</h3>
+
+<p>
+    The Identity Management service provide the platform a single source of truth for all user information.
+    This service is used by all other services to authenticate and authorize users.
+    The Identity Management service also provides an Owner Platform authorization workflow that each user
+    must go through before they can access an Owners game.
+    This layer of authorization allows for an Owner to control who has access to their game.
+</p>
 
 <h3 id="cloud-platform-service">Cloud Platform Service</h3>
 
-<p>This is the entry point Dashboard for platform administrators, platform owners can use this dashboard to get access
-    to their Account. The platform includes a list of all of created services and their current state on the platform.
-    Account administration is also done here, like approving new registration requests or starting update platform
-    request processing.</p>
+<p>
+    This is the central Dashboard for platform administration, platform owners can use the dashboard to get access
+    to their Owner Services.
+    Platform administration is also done here, like the approving of new registration requests or starting platform
+    update
+    request.
+    The Cloud Platform service provides all the information about the platform, like the current state of the
+    platform
+    and the current state of the Owner Platforms.
+</p>
 
-<h3 id="game-client-service">Game Client Service</h3>
+<h2 id="owner-platform-layer">Owner Platform Layer</h2>
 
-<p>This is the beginning GUI that a player will interface with when starting a game. This service contains all the Game
-    Assets, be that scripts, images, models, etc. The Engine service contains all the base logic to interface with the
-    rest of the Platform. After logging in and starting the Game a player will interface with the Core service and on
-    successfully lookup of their client information will be connected to their Zone server.</p>
+<p>
+    The Owner Platform layer is an architecture isolated part of the Kubernetes Cluster created just for the Owner.
+    This layer contains the Owner Platform, Editor, Game Client and Game Server services.
+</p>
+
+<h3 id="game-client-service">Client/Editor Server</h3>
+
+<p>
+    The Client/Editor Server is the main entry point for a player or developer to access the Owner platform.
+    This service hosts a client side application that is used to access the Editor and Game Client.
+    The Editor is a browser based application that is used to manage the game, like managing a Zone, Scripts,
+    Players, Agents, Assets, etc.
+</p>
+
+<p>
+    The Editor is ued to manage Game Assets; scripts, images, models, etc.
+    The Engine service contains all the base logic to interface with the rest of the Platform.
+    The Editor also contains a variety of tools that can be used to easily manage the platform, for zones you can
+    edit
+    files directly on the file system, and update static work entities in a zone.
+</p>
 
 <h3 id="asset-server">Asset Server</h3>
 
-<p>This server is a centralized location for all game assets, like terrain textures, player models, and pixel/vertex
-    shaders used by different platform features. It has an API used by the editor that will allow for custom assets to
-    be uploaded and exposed to the Game client as assets.</p>
+<p>
+    This server is a centralized location for all game assets, like terrain textures, player models, and
+    pixel/vertex
+    shaders used by different platform features. It has an API used by the editor that will allow for custom assets
+    to
+    be uploaded and exposed to the Game client as assets.
+    The Game Server Exports are also stored here, allowing for a single location for all game assets, that can then
+    be
+    transferred to new Game Servers.
+</p>
 
 <h3 id="core-service">Core Service</h3>
 
-<p>The Core service is the the central service all other services interface to. This service returns the details about a
-    client connection, like their state in the Platform and Zone location information. Zone services will also connect
-    and is used for keep alive and connection information about other platform services.</p>
+<p>
+    The Core service is the the central service all other services interface with.
+    This service returns the details about a client connection, like their state in the Platform and Zone location
+    information.
+    Zone services will also connect and is used for keep alive and connection information about other platform
+    services.
+</p>
 
 <h3 id="zone-service">Zone Service</h3>
 
-<p>The Zone services is a Game world location. The zone server contains unique information about what a Client will
-    interact with in the game world. The Zone server contains Agents, Player, Scripts, Logic, GUI, etc of the game world
-    helping to localize the state of the world in a single Server instances.</p>
+<p>
+    The Zone service contains all the Game related assets, this can be though of as a shard of a greater game.
+    The zone server contains unique information about what a Client will
+    interact with in the game world.
+    The Zone server contains connections to the Agent and Player services so multiple Zone servers can have a shared
+    state of the game world.
+</p>
 
-<p>The server state can also be tweaked with CSX/C# Scripts as well. These scripts can be used to run different logic on
-    the server/game client and hot reloaded while the server is running.</p>
+<p>
+    The Zone server also contains a connection to the Core service, this connection is used to keep the Core service
+    up to date with the current state of the Zone.
 
-<p>Configuration for the different systems, services, and scripts are JSON based, allow for human readable
+    The Zone server houses logic specific to its Zone, like the Zone Terrain, Assets, Scripts, Logic, GUI, etc of
+    the
+    game world helping to localize the state of the world in a single Server instances.
+
+    The Server Scripts are used to run logic on the server, like when a player enters a Zone, or when a player
+    interacts
+    with an Agent. The Scripts are written in CSX/C# and can be hot reloaded while the server is running.
+</p>
+
+<p>
+    Configuration for the different systems, services, and scripts are JSON based, allow for human readable
     configuration. Most if not all the configuration can be edited from the browser based Editor, more details to be
-    provided by the Editor Server section.</p>
+    provided by the Editor Server section.
+</p>
 
 <h3 id="player-service">Player Service</h3>
 
-<p>The Player service hold all of the player/client information for the whole platform. As details about a player for a
-    Platform change, this service will make sure it is persisted between logins, and platform updates.</p>
+<p>
+    The Player service hold all of the player/client information for the Owners platform.
+    As details about a player for a Platform change, this service will make sure it is persisted between logins, and
+    platform updates.
+    These details are used to keep track of the player, like their current Zone, and any other details not zone
+    specific.
+</p>
 
 <h3 id="agent-service">Agent Service</h3>
 
-<p>The Agent services hold information about Global Agents, these agents are similar to traveling NPC’s, and are more of
-    a template to be used for global NPC’s on the platform. Currently they are just like other Agents in a Zone, but
-    will be enhanced to be a template for global Enemies, Trader, Quest Givers, etc. This service is more for
-    multi-server game environments, this allows for a single NPC to move between different game zones.</p>
-
-<h3 id="editor-service">Editor Service</h3>
-
-<p>This services allows for Administrators of the Platform to manage the Player, Agent, Asset and Zone details. This
-    service helps to keep track of Zone details, and contains a list of all currently connected Zone available on the
-    Core server. This connection to the Core service allows for a holistic view of all the Zone/Game server attached to
-    the platform.</p>
-
-<p>The Editor also contains a variety of tools that can be used to easily manage the platform, for zones you can edit
-    files directly on the file system, and update static work entities in a zone. This service is the one stop shop for
-    all your game creation needs.</p>
+<p>
+    The Agent services hold information about Global Agents, these agents are similar to traveling NPC's, and are
+    more
+    of
+    a template to be used for global NPC's on the platform.
+    They are just like other Agents in a Zone, but have their details stored in the Agent service, and not in a
+    Zone.
+    This service allows for multi-server game environments, this allows for a single NPC to move between different
+    game
+    zones.
+</p>

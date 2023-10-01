@@ -1,7 +1,9 @@
 @page "/privacy-policy"
 @inject Localizer<SharedResource> Localizer
 
-<PageTitle>@Localizer["Privacy Policy"]</PageTitle>
+<PageTitle>
+    @Localizer["Privacy Policy"]
+</PageTitle>
 
 <h1>
     Privacy Policy of
@@ -227,7 +229,8 @@
 <h2>Contact Us</h2>
 
 <p>
-    <MudLink Href="mailto:mail+privacy-policy@ehzgames.studio">@Localizer["mail+privacy-policy@ehzgames.studio"]</MudLink>
+    <MudLink Href="mailto:mail+privacy-policy@ehzgames.studio">@Localizer["mail+privacy-policy@ehzgames.studio"]
+    </MudLink>
 </p>
 
 <p class="--bold">This document has been last modified on December 24th, 2020</p>
@@ -238,6 +241,11 @@
         margin-top: 15px;
         margin-bottom: 15px;
     }
+
+    .data-list li {
+        list-style: circle;
+    }
+
     .--bold,
     .website_name {
         font-weight: bold;

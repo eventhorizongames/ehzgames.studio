@@ -75,6 +75,7 @@ p {
     line-height: var(--mud-typography-body1-lineheight);
     letter-spacing: var(--mud-typography-body1-letterspacing);
     text-transform: var(--mud-typography-body1-text-transform);
+    padding-bottom: 1rem;
 }
 
 caption {
@@ -97,4 +98,9 @@ button {
 
 pre {
     margin: 1rem;
+}
+
+.--full-width {
+    width: 100%;
+    height: auto;
 }

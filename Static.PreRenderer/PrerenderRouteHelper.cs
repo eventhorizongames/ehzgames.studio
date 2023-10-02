@@ -15,19 +15,26 @@ public static class PrerenderRouteHelper
         var components = assembly.ExportedTypes.Where(t => t.IsSubclassOf(typeof(ComponentBase)));
 
         var routes = components
-            .Select(GetRouteFromComponent)
+            .Select(GetRouteFromComponents)
+            .SelectMany(route => route)
             .Where(config => config is not null)
             .ToList();
 
         return routes;
     }
 
-    private static string GetRouteFromComponent(Type component)
+    private static string[] GetRouteFromComponents(Type component)
     {
         var attributes = component.GetCustomAttributes(inherit: true);
 
-        var routeAttribute = attributes.OfType<RouteAttribute>().FirstOrDefault();
+        return attributes
+            .OfType<RouteAttribute>()
+            .Select(route => GetRouteFromComponent(route, component))
+            .ToArray();
+    }
 
+    private static string GetRouteFromComponent(RouteAttribute routeAttribute, Type component)
+    {
         if (routeAttribute is null)
         {
             // Only map routable components

@@ -1,0 +1,89 @@
+@page "/s"
+@page "/s/{id}"
+@inject Localizer<SharedResource> Localizer
+
+<PageTitle>
+    @Localizer["Links"]
+</PageTitle>
+
+@if (string.IsNullOrEmpty(_location))
+{
+    <div style="padding: 3rem 0;">
+        <h1>Links</h1>
+
+        <p>Below is a great list of link relating to the EventHorizon Games Studio.</p>
+
+        <ul>
+            <li>
+                <a href="https://twitter.com/CodyAnhorn" target="_blank" rel="noopener noreferrer">The Founders Twitter</a>
+            </li>
+            <li>
+                <a href="https://discord.gg/n4wcN3C" target="_blank" rel="noopener noreferrer">The Discord Server</a>
+            </li>
+            <li>
+                <a href="https://codyanhorn.tech/blog" target="_blank" rel="noopener noreferrer">Founders Blog</a>
+            </li>
+            <li>
+                <a href="https://github.com/eventhorizongames" target="_blank" rel="noopener noreferrer">
+                    EventHorizon Games Studio GitHub
+                </a>
+            </li>
+            <li>
+                <a href="https://twitch.tv/CodyAnhorn" target="_blank" rel="noopener noreferrer">The Founders Twitch</a>
+            </li>
+        </ul>
+    </div>
+}
+else
+{
+    <p style="padding: 3rem 0; text-align: center;">
+        Redirecting to <a href="@_location">@_location</a>
+    </p>
+}
+
+@code {
+    [Parameter]
+    public string? Id { get; set; } = string.Empty;
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = null!;
+
+    private string _location = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        _location = GetLocation();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _location = GetLocation();
+            await InvokeAsync(StateHasChanged);
+            await Task.Delay(1000);
+            if (!string.IsNullOrEmpty(_location))
+            {
+                //NavigationManager.NavigateTo(_location, true);
+            }
+        }
+    }
+
+    private string GetLocation()
+    {
+        var id = Id?.ToLowerInvariant() ?? "";
+        return id switch
+        {
+            "creator" => "https://twitter.com/CodyAnhorn",
+            "discord-app" => "https://discordapp.com/activity",
+            "discord" => "https://discord.gg/n4wcN3C",
+            "founder-blog" => "https://codyanhorn.tech/blog",
+            "founder-twitter" => "https://twitter.com/CodyAnhorn",
+            "github" => "https://github.com/eventhorizongames",
+            "trello-immortals" => "https://github.com/eventhorizongames",
+            "twitch" => "https://twitch.tv/CAnhorn",
+            "twitter" => "https://twitter.com/CodyAnhorn",
+            _ => "",
+        };
+    }
+}

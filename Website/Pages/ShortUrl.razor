@@ -50,9 +50,6 @@ else
 }
 
 @code {
-    [Parameter]
-    public string? Id { get; set; } = string.Empty;
-
     [Inject]
     public NavigationManager NavigationManager { get; set; } = null!;
 
@@ -79,7 +76,7 @@ else
 
     private string GetLocation()
     {
-        var id = Id?.ToLowerInvariant() ?? "";
+        var id = NavigationManager.Uri.Split('/').LastOrDefault()?.ToLowerInvariant() ?? "";
         return id switch
         {
             "creator" => "https://twitter.com/CodyAnhorn",

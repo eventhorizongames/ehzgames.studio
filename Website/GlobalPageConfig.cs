@@ -10,5 +10,6 @@ public static class GlobalPageConfig
         ["game-development-platform"] = 1000,
     };
 
-    public static readonly string GameDevelopmentPlatformLink = "https://cloud-sandbox.sandbox.ehzgames.studio/";
+    public static readonly string GameDevelopmentPlatformLink =
+        "https://cloud-sandbox.sandbox.ehzgames.studio/";
 }

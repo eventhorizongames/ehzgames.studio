@@ -76,7 +76,10 @@ else
 
     private string GetLocation()
     {
-        var id = NavigationManager.Uri.Split('/').LastOrDefault()?.ToLowerInvariant() ?? "";
+        var id = NavigationManager.Uri
+            .Split('/', StringSplitOptions.RemoveEmptyEntries)
+            .LastOrDefault()
+            ?.ToLowerInvariant() ?? "";
         return id switch
         {
             "creator" => "https://twitter.com/CodyAnhorn",

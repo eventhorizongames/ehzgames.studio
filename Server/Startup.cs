@@ -50,7 +50,7 @@ public class Startup
                 var supportedCultures = new List<CultureInfo>
                 {
                     // Set Supported Locales
-                    new CultureInfo("en-US"),
+                    new("en-US"),
                 };
 
                 opts.DefaultRequestCulture = new RequestCulture("en-US");

@@ -5,12 +5,10 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
+using Microsoft.AspNetCore.Components;
 using Website.Metadata.Api;
 using Website.Metadata.Attributes;
 using Website.Metadata.Model;
-
-using Microsoft.AspNetCore.Components;
 
 public class StandardPageMetadataRepository : PageMetadataRepository
 {
@@ -45,8 +43,8 @@ public class StandardPageMetadataRepository : PageMetadataRepository
         var pageList = new Dictionary<string, PageMetadataModel>();
         var pageFileNameList = new List<string>();
         // Get All Pages
-        var pageMetadataList = settings.PageAssemblyList
-            .SelectMany(x => x.DefinedTypes)
+        var pageMetadataList = settings
+            .PageAssemblyList.SelectMany(x => x.DefinedTypes)
             .Where(type => typeof(PageMetadata).IsAssignableFrom(type));
 
         foreach (var typeInfo in pageMetadataList)
@@ -62,7 +60,7 @@ public class StandardPageMetadataRepository : PageMetadataRepository
                         $"Page Metadata needs a RouteAttribute to function: {typeInfo.Name}"
                     );
                 }
-                var model = new PageMetadataModel { Title = typeInfo.Name, };
+                var model = new PageMetadataModel { Title = typeInfo.Name };
                 // If has the PageMetadata Attribute pull data from that first
                 if (Attribute.IsDefined(typeInfo, typeof(PageMetadataAttribute)))
                 {
@@ -104,8 +102,7 @@ public class StandardPageMetadataRepository : PageMetadataRepository
             AddNavigationModelToNode(pageList, root, path, folderOrders);
         }
         root.ChildrenAsList =
-            root.ChildrenAsList
-                ?.OrderBy(a => a.Order)
+            root.ChildrenAsList?.OrderBy(a => a.Order)
                 ?.ThenBy(a => a.Title)
                 ?.ThenBy(a => a.ChildrenAsList != null)
                 ?.ToList() ?? new List<PageNavigationModel>();
@@ -173,8 +170,8 @@ public class StandardPageMetadataRepository : PageMetadataRepository
 
             parent = newParent;
             parent.ChildrenAsList =
-                parent.ChildrenAsList
-                    ?.OrderBy(a => a.Order)
+                parent
+                    .ChildrenAsList?.OrderBy(a => a.Order)
                     ?.ThenBy(a => a.Title)
                     ?.ThenBy(a => a.ChildrenAsList != null)
                     ?.ToList() ?? new List<PageNavigationModel>();
@@ -192,8 +189,8 @@ public class StandardPageMetadataRepository : PageMetadataRepository
             }
         );
         parent.ChildrenAsList =
-            parent.ChildrenAsList
-                ?.OrderBy(a => a.Order)
+            parent
+                .ChildrenAsList?.OrderBy(a => a.Order)
                 ?.ThenBy(a => a.Title)
                 ?.ThenBy(a => a.ChildrenAsList != null)
                 ?.ToList() ?? new List<PageNavigationModel>();

@@ -1,7 +1,6 @@
 namespace Website.Metadata.Api;
 
 using System.Collections.Generic;
-
 using Website.Metadata.Model;
 
 public interface PageMetadataRepository

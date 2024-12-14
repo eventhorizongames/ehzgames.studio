@@ -1,12 +1,10 @@
 namespace Website.Metadata.Model;
 
 using System.Reflection;
-
+using Microsoft.AspNetCore.Components;
 using Website.Localization;
 using Website.Localization.Api;
 using Website.Metadata.Api;
-
-using Microsoft.AspNetCore.Components;
 
 public class PageMetadataBase : ComponentBase, PageMetadata
 {

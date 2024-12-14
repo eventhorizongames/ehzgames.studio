@@ -1,7 +1,6 @@
 namespace Website.Metadata.Model;
 
 using System.Collections.Generic;
-
 using Website.Metadata.Api;
 
 public class PageNavigationModel : PageNavigation

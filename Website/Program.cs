@@ -6,19 +6,16 @@ using System.Globalization;
 using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
-
-using Website.Localization.Api;
-using Website.Localization.Model;
-using Website.Metadata.Api;
-using Website.Metadata.State;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
 using MudBlazor.Services;
+using Website.Localization.Api;
+using Website.Localization.Model;
+using Website.Metadata.Api;
+using Website.Metadata.State;
 
 public class Program
 {
@@ -33,17 +30,20 @@ public class Program
 
         builder.Services.AddMudServices();
 
-        builder.Services.AddScoped(
-            sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) }
-        );
+        builder.Services.AddScoped(sp => new HttpClient
+        {
+            BaseAddress = new Uri(builder.HostEnvironment.BaseAddress),
+        });
 
-        builder.Services
-            .AddSingleton(new PageMetadataSettings(new List<Assembly> { typeof(Program).Assembly }))
+        builder
+            .Services.AddSingleton(
+                new PageMetadataSettings(new List<Assembly> { typeof(Program).Assembly })
+            )
             .AddScoped<PageMetadataRepository, StandardPageMetadataRepository>();
 
         // I18n Services
-        builder.Services
-            .AddScoped(typeof(Localizer<>), typeof(StringBasedLocalizer<>))
+        builder
+            .Services.AddScoped(typeof(Localizer<>), typeof(StringBasedLocalizer<>))
             .AddLocalization(options => options.ResourcesPath = "Resources")
             .Configure<RequestLocalizationOptions>(opts =>
             {

@@ -31,6 +31,38 @@ public class StandardPageMetadataRepository : PageMetadataRepository
         return _map[route];
     }
 
+    public PageMetadataModel? NextPage(string currentRoute)
+    {
+        var current = _map[currentRoute];
+        var flattenedNav = _nav.Flatten().SkipWhile(a => a.Route != currentRoute).Skip(1).ToList();
+        var page = flattenedNav.FirstOrDefault();
+        if (page?.IsFolder ?? false)
+        {
+            page = flattenedNav.FirstOrDefault(a => !a.IsFolder);
+        }
+        if (page == null || string.IsNullOrEmpty(page.Route))
+        {
+            return null;
+        }
+        return _map[page.Route];
+    }
+
+    public PageMetadataModel? PreviousPage(string currentRoute)
+    {
+        var current = _map[currentRoute];
+        var flattenedNav = _nav.Flatten().TakeWhile(a => a.Route != currentRoute).ToList();
+        var page = flattenedNav.LastOrDefault();
+        if (page?.IsFolder ?? false)
+        {
+            page = flattenedNav.LastOrDefault(a => !a.IsFolder);
+        }
+        if (page == null || string.IsNullOrEmpty(page.Route))
+        {
+            return null;
+        }
+        return _map[page.Route];
+    }
+
     public PageNavigation Nav()
     {
         return _nav;
@@ -78,9 +110,11 @@ public class StandardPageMetadataRepository : PageMetadataRepository
             }
         }
 
+#pragma warning disable IDE0306 // Simplify collection initialization
         return new ConcurrentDictionary<string, PageMetadataModel>(
             pageList.OrderBy(a => a.Value.Order)
         );
+#pragma warning restore IDE0306 // Simplify collection initialization
     }
 
     private static PageNavigation BuildPageNavigation(

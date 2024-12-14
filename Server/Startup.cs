@@ -33,6 +33,7 @@ public class Startup
         services.AddRazorPages();
 
         services
+            .AddScoped<PageScopedState, InMemoryPageScopedState>()
             .AddSingleton(
                 new PageMetadataSettings(new List<Assembly> { typeof(Website.Program).Assembly })
             )

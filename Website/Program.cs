@@ -36,9 +36,8 @@ public class Program
         });
 
         builder
-            .Services.AddSingleton(
-                new PageMetadataSettings(new List<Assembly> { typeof(Program).Assembly })
-            )
+            .Services.AddScoped<PageScopedState, InMemoryPageScopedState>()
+            .AddSingleton(new PageMetadataSettings([typeof(Program).Assembly]))
             .AddScoped<PageMetadataRepository, StandardPageMetadataRepository>();
 
         // I18n Services

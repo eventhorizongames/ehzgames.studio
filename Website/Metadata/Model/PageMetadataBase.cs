@@ -9,10 +9,13 @@ using Website.Metadata.Api;
 public class PageMetadataBase : ComponentBase, PageMetadata
 {
     [Inject]
-    public Localizer<SharedResource> Localizer { get; set; } = null!;
+    public required Localizer<SharedResource> Localizer { get; set; }
 
     [Inject]
-    public PageMetadataRepository Repository { get; set; } = null!;
+    public required PageMetadataRepository Repository { get; set; }
+
+    [Inject]
+    public required PageScopedState ScopedState { get; set; }
 
     public PageMetadataModel PageMetadata { get; private set; } = new PageMetadataModel();
 
@@ -26,5 +29,6 @@ public class PageMetadataBase : ComponentBase, PageMetadata
             return;
         }
         PageMetadata = Repository.Get(route);
+        ScopedState.SetCurrentPage(PageMetadata);
     }
 }

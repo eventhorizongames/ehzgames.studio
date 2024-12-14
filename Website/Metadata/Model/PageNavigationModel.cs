@@ -11,5 +11,15 @@ public class PageNavigationModel : PageNavigation
     public string Route { get; set; } = string.Empty;
     public bool IsFolder { get; set; }
     public IEnumerable<PageNavigation> Children => ChildrenAsList;
-    public List<PageNavigationModel> ChildrenAsList { get; set; } = new List<PageNavigationModel>();
+    public List<PageNavigationModel> ChildrenAsList { get; set; } = [];
+
+    public IEnumerable<PageNavigation> Flatten()
+    {
+        var list = new List<PageNavigation> { this };
+        foreach (var child in ChildrenAsList)
+        {
+            list.AddRange(child.Flatten());
+        }
+        return list;
+    }
 }

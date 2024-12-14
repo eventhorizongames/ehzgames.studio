@@ -6,8 +6,6 @@
 
         <NullabilityInfoContextSupport>true</NullabilityInfoContextSupport>
         <RunAOTCompilation>true</RunAOTCompilation>
-        <WasmStripILAfterAOT>true</WasmStripILAfterAOT>
-        <WasmNativeStrip>false</WasmNativeStrip>
     </PropertyGroup>
 
     <ItemGroup>

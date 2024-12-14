@@ -26,6 +26,8 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '9.x'
+    - name: install .NET Workloads
+      run: dotnet workload install wasm-tools
     - name: Install dependencies
       run: pwsh -c "./publish.ps1"
     - name: Setup Pages

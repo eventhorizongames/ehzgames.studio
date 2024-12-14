@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
 
         <NullabilityInfoContextSupport>true</NullabilityInfoContextSupport>
+        <RunAOTCompilation>true</RunAOTCompilation>
     </PropertyGroup>
 
     <ItemGroup>

@@ -23,17 +23,17 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '7.x'
+        dotnet-version: '8.x'
     - name: Install dependencies
       run: pwsh -c "./publish.ps1"
     - name: Setup Pages
-      uses: actions/configure-pages@v3
+      uses: actions/configure-pages@v5
     - name: Upload artifact
-      uses: actions/upload-pages-artifact@v2
+      uses: actions/upload-pages-artifact@v3
       with:
         path: './output/wwwroot'
     - name: Deploy to GitHub Pages
       id: deployment
-      uses: actions/deploy-pages@v2
+      uses: actions/deploy-pages@v4

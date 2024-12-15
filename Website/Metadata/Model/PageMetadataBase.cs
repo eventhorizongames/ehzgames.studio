@@ -28,7 +28,13 @@ public class PageMetadataBase : ComponentBase, PageMetadata
         {
             return;
         }
-        PageMetadata = Repository.Get(route);
-        ScopedState.SetCurrentPage(PageMetadata);
+        var page = Repository.Get(route);
+        if (page is null)
+        {
+            return;
+        }
+
+        PageMetadata = page;
+        ScopedState.SetCurrentPage(page);
     }
 }

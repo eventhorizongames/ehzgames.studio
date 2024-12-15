@@ -18,7 +18,10 @@ public class StandardPageMetadataRepository : PageMetadataRepository
     public StandardPageMetadataRepository(PageMetadataSettings settings)
     {
         _map = GenerateListOfPageMetadata(settings);
-        _nav = BuildPageNavigation(_map, settings.FolderOrders);
+        _nav = BuildPageNavigation(
+            _map.Where(a => a.Value.InNavigation).ToDictionary(),
+            settings.FolderOrders
+        );
     }
 
     public IEnumerable<PageMetadataModel> All()
@@ -26,9 +29,9 @@ public class StandardPageMetadataRepository : PageMetadataRepository
         return _map.Values;
     }
 
-    public PageMetadataModel Get(string route)
+    public PageMetadataModel? Get(string route)
     {
-        return _map[route];
+        return _map.TryGetValue(route, out var page) ? page : null;
     }
 
     public PageMetadataModel? NextPage(string currentRoute)
@@ -102,6 +105,7 @@ public class StandardPageMetadataRepository : PageMetadataRepository
                         ? typeInfo.Name
                         : pageMetadataAttribute.Title;
                     model.Order = pageMetadataAttribute?.Order ?? 0;
+                    model.InNavigation = pageMetadataAttribute?.InNavigation ?? true;
                 }
 
                 model.Route = routeAttribute.Template;
@@ -117,7 +121,7 @@ public class StandardPageMetadataRepository : PageMetadataRepository
 #pragma warning restore IDE0306 // Simplify collection initialization
     }
 
-    private static PageNavigation BuildPageNavigation(
+    private static PageNavigationModel BuildPageNavigation(
         IDictionary<string, PageMetadataModel> pageList,
         IDictionary<string, float> folderOrders
     )
@@ -128,7 +132,7 @@ public class StandardPageMetadataRepository : PageMetadataRepository
             Id = "root",
             Title = "root",
             IsFolder = true,
-            ChildrenAsList = new List<PageNavigationModel>(),
+            ChildrenAsList = [],
         };
 
         foreach (var path in pathList)
@@ -139,7 +143,7 @@ public class StandardPageMetadataRepository : PageMetadataRepository
             root.ChildrenAsList?.OrderBy(a => a.Order)
                 ?.ThenBy(a => a.Title)
                 ?.ThenBy(a => a.ChildrenAsList != null)
-                ?.ToList() ?? new List<PageNavigationModel>();
+                ?.ToList() ?? [];
 
         return root;
     }
@@ -186,7 +190,7 @@ public class StandardPageMetadataRepository : PageMetadataRepository
                 // Set Parent to Folder
                 newParent.IsFolder = true;
                 newParent.Route = string.Empty;
-                newParent.ChildrenAsList = new List<PageNavigationModel> { newParentAsNode };
+                newParent.ChildrenAsList = [newParentAsNode];
             }
             else
             {
@@ -196,7 +200,7 @@ public class StandardPageMetadataRepository : PageMetadataRepository
                     Order = folderOrders.TryGetValue(newParentPath, out var order) ? order : 0,
                     Title = newParentPath,
                     IsFolder = true,
-                    ChildrenAsList = new List<PageNavigationModel>(),
+                    ChildrenAsList = [],
                 };
 
                 parent.ChildrenAsList.Add(newParent);
@@ -208,7 +212,7 @@ public class StandardPageMetadataRepository : PageMetadataRepository
                     .ChildrenAsList?.OrderBy(a => a.Order)
                     ?.ThenBy(a => a.Title)
                     ?.ThenBy(a => a.ChildrenAsList != null)
-                    ?.ToList() ?? new List<PageNavigationModel>();
+                    ?.ToList() ?? [];
         }
 
         var pageMetadata = pageList.First(page => page.Key == path).Value;
@@ -227,6 +231,6 @@ public class StandardPageMetadataRepository : PageMetadataRepository
                 .ChildrenAsList?.OrderBy(a => a.Order)
                 ?.ThenBy(a => a.Title)
                 ?.ThenBy(a => a.ChildrenAsList != null)
-                ?.ToList() ?? new List<PageNavigationModel>();
+                ?.ToList() ?? [];
     }
 }

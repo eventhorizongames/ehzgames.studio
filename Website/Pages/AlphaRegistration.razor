@@ -16,7 +16,7 @@
     <p style="padding-bottom: 1rem">
         @Localizer["Request Access and begin your own journey in Game Development."]
     </p>
-    <div class="registration__call-to-action">
+    <div class="registration__call-to-action @(HidePlatformDetailsLink ? "--single" : "")">
         <!-- Register Button -->
         <a class="link__element" href="@GlobalPageConfig.GameDevelopmentPlatformLink"
             title="@Localizer["Click here to request Access to the Alpha!"]" target="_blank">
@@ -36,24 +36,6 @@
         }
     </div>
 </div>
-
-<style>
-    .registration__call-to-action {
-        display: flex;
-        gap: 1rem;
-        padding: 1rem;
-    }
-
-    .registration__link-container {
-        padding: 1rem;
-        border: 1px solid #ccc;
-    }
-
-    .registration__link-container:hover,
-    a:focus .registration__link-container {
-        background-color: rgba(39, 39, 47, 1);
-    }
-</style>
 
 @code {
     [Parameter]

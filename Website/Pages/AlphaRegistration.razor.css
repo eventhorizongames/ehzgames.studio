@@ -1,0 +1,31 @@
+.registration__call-to-action {
+    display: grid;
+    gap: 1rem;
+    padding: 1rem;
+    grid-template-columns: 1fr;
+}
+
+@media screen and (min-width: 550px) {
+    .registration__call-to-action {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.registration__call-to-action.--single {
+    grid-template-columns: 1fr;
+}
+
+.link__element {
+    padding: 1rem;
+    border: 1px solid #ccc;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.registration__link-container:hover,
+a:focus .registration__link-container {
+    background-color: rgba(39, 39, 47, 1);
+}

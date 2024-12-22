@@ -1,0 +1,10 @@
+<MudCard Style="cursor: pointer;" Outlined="true" @onclick="HandleShowImageModal">
+    <MudCardContent>
+        <div class="d-flex flex-column flex-column justify-center">
+            <MudImage Alt="@AltText" Src="@ImageUrl" />
+            <MudText Align="@Align.Center" Class="mx-auto">
+                @Title
+            </MudText>
+        </div>
+    </MudCardContent>
+</MudCard>

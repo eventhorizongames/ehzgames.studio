@@ -1,0 +1,132 @@
+@page "/landing/avatar-studio"
+@using Website.Pages.landing.Components
+@attribute [Page]
+@attribute [PageMetadata(Title = "Avatar Studio", Order = -1, InNavigation = false)]
+@inherits PageMetadataBase
+
+<PageTitle>
+    @Localizer["EventHorizon - Avatar Studio"]
+</PageTitle>
+
+<MudText Typo="Typo.h1">@Localizer["Avatar Studio"]</MudText>
+<MudText>
+    @Localizer["EventHorizon Avatar Studio is an all-in-one creation and animation solution for content creators. It simplifies bringing your 2D models to life with an easy-to-use interface and customization options to tailor your avatar to your style."]
+</MudText>
+
+<a href="https://dl.ehzgames.studio/avatar-studio/EventHorizon.Avatar.Studio.Desktop.appinstaller" 
+    target="_blank" 
+    download="EventHorizon.Avatar.Studio.appinstaller">
+    <MudButton Variant="Variant.Filled" Color="Color.Primary">
+        @Localizer["Download on Windows"]
+    </MudButton> 
+</a>
+
+<div class="section">
+    <MudText Typo="Typo.h2">@Localizer["Core Features"]</MudText>
+    <div class="section core-features__grid">
+        <MudCard Outlined="true">
+            <MudCardContent>
+                <MudText Typo="Typo.h4" Align="Align.Center">@Localizer["2D Avatar Editor"]</MudText>
+                <MudText Align="Align.Center">
+                    @Localizer["Manage your 2D avatar with a wide range of customization options."]
+                </MudText>
+            </MudCardContent>
+            @* <MudCardActions>
+                <MudButton Variant="Variant.Text" Color="Color.Primary">Learn More</MudButton>
+            </MudCardActions> *@
+        </MudCard>
+        <MudCard Outlined="true">
+            <MudCardContent>
+                <MudText Typo="Typo.h4" Align="Align.Center">@Localizer["Action Director"]</MudText>
+                <MudText Align="Align.Center">
+                    @Localizer["React to events with animations and sounds."]
+                </MudText>
+            </MudCardContent>
+        </MudCard>
+        <MudCard Outlined="true">
+            <MudCardContent>
+                <MudText Typo="Typo.h4" Align="Align.Center">@Localizer["Intuitive Interface"]</MudText>
+                <MudText Align="Align.Center">
+                    @Localizer["Easy-to-use interface for managing your avatar."]
+                </MudText>
+            </MudCardContent>
+        </MudCard>
+    </div>
+</div>
+
+@* <div class="section">
+    <MudText Typo="Typo.h2">@Localizer["Trailer"]</MudText>
+    <MudText>
+        @Localizer["Watch the video trailer for EventHorizon Avatar Studio."]
+    </MudText>
+</div> *@
+
+@* <div class="section">
+    <MudText Typo="Typo.h2">@Localizer["Features"]</MudText>
+    <MudText>
+        @Localizer["EventHorizon Avatar Studio is a powerful tool for creating and animating 2D models. It offers a wide range of features to help you bring your avatar to life."]
+    </MudText>
+</div>
+ *@
+
+<div class="section">
+    <MudText Typo="Typo.h2">@Localizer["Screenshots"]</MudText>
+    <MudText>
+        @Localizer["Check out some screenshots of EventHorizon Avatar Studio."]
+    </MudText>
+    <div class="section screenshots__grid">
+        <ScreenshotCard Title="@Localizer["Asset Manager"]" 
+            ImageUrl="/images/AvatarStudio/Asset Manager.png"
+            AltText="@Localizer["Shows the Asset Manager of the Avatar Studio, displaying a collection of images and an upload file box."]" />
+        <ScreenshotCard Title="@Localizer["Asset Settings"]"
+            ImageUrl="/images/AvatarStudio/Asset Settings.png"
+            AltText="@Localizer["Shows the Asset Settings of the Avatar Studio, showing a form that allows for the editing of settings of specific parameters."]" />
+        <ScreenshotCard Title="@Localizer["Avatar Editor"]"
+            ImageUrl="/images/AvatarStudio/Avatar Editor.png"
+            AltText="@Localizer["Shows the Avatar Editor of the Avatar Studio, displaying a 2D model and a layer/asset menu."]" />
+        <ScreenshotCard Title="@Localizer["Director Editor"]"
+            ImageUrl="/images/AvatarStudio/Director Editor.png"
+            AltText="@Localizer["Shows the Director Editor of the Avatar Studio, displaying a collection of Triggers and Actions that will can be ran."]" />
+        <ScreenshotCard Title="@Localizer["Layer Settings"]"
+            ImageUrl="/images/AvatarStudio/Layer Settings.png"
+            AltText="@Localizer["Shows the Layer Settings of the Avatar Studio, displaying a form that allows for the editing of settings of specific parameters."]" />
+        <ScreenshotCard Title="@Localizer["Spline Editor"]"
+            ImageUrl="/images/AvatarStudio/Spline Editor.png"
+            AltText="@Localizer["Shows the Spline Editor of the Avatar Studio, displaying a collection of points that can be moved to create a path."]" />
+    </div>
+</div>
+
+<div class="section">
+    <MudText Typo="Typo.h2">@Localizer["Download EventHorizon Avatar Studio"]</MudText>
+    <MudText>
+        @Localizer["The EventHorizon Avatar Studio (Beta) is available for Windows. Download it now and start creating your own 2D models!"]
+    </MudText>
+    <div>
+        <a href="https://dl.ehzgames.studio/avatar-studio/EventHorizon.Avatar.Studio.Desktop.appinstaller" target="_blank" download="EventHorizon.Avatar.Studio.appinstaller">
+            <MudButton Variant="Variant.Filled" Color="Color.Primary">
+                @Localizer["Download on Windows"]
+            </MudButton> 
+        </a>
+    </div>
+</div>
+
+<div class="section">
+    <MudText Typo="Typo.h2">@Localizer["Need Support?"]</MudText>
+    <MudText>
+        @Localizer["If you have any questions or need help with EventHorizon Avatar Studio, please contact us."]
+    </MudText>
+    <MudText>
+        <a href="mailto:mail+avatar_studio@ehzgames.studio">
+            <MudButton Variant="Variant.Filled" Color="Color.Primary">
+                @Localizer["Contact Support"]
+            </MudButton>
+        </a>
+    </MudText>
+    <MudText>
+        @Localizer["You can also contact me on BlueSky at"] 
+        <MudButton href="https://bsky.app/profile/codyanhorn.tech" Target="_blank">
+            @Localizer["Cody Merritt Anhorn"]
+        </MudButton>
+    </MudText>
+</div>
+

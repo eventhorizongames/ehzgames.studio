@@ -1,0 +1,33 @@
+<MudDialog>
+    <TitleContent>
+        @Title
+    </TitleContent>
+    <DialogContent>
+        <MudImage Alt="@AltText" Src="@Image" Style="width: 100%;" />
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Close">
+            @Localizer["Close"]
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    public required MudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public required string Title { get; set; }
+
+    [Parameter]
+    public required string Image { get; set; }
+
+    [Parameter]
+    public required string AltText { get; set; }
+
+    [Inject]
+    public required Localizer<SharedResource> Localizer { get; set; }
+
+
+    private void Close() => MudDialog.Cancel();
+}

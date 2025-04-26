@@ -1,6 +1,7 @@
 param(
     [string]
     [ValidateSet(
+        "setup",
         "clean",
         "restore",
         "build",
@@ -21,6 +22,10 @@ param(
 $serverProject = "./Server/Server.csproj"
 
 switch ($Command) {
+    "setup" {
+        dotnet workload install wasm-tools
+        dotnet tool install -g csharpier
+    }
     "clean" {
         dotnet clean
     }

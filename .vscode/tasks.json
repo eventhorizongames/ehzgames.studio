@@ -2,43 +2,43 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "format",
+            "command": "pwsh",
+            "type": "process",
+            "args": [
+                "entry.ps1",
+                "format"
+            ],
+        },
+        {
             "label": "build",
-            "command": "dotnet",
+            "command": "pwsh",
             "type": "process",
             "dependsOn": [
                 "format"
             ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "args": [
-                "build",
-                "${workspaceFolder}",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "entry.ps1",
+                "build"
             ],
             "problemMatcher": "$msCompile"
         },
         {
             "label": "watch",
-            "command": "dotnet",
+            "command": "pwsh",
             "type": "process",
             "dependsOn": [
                 "format"
             ],
             "args": [
-                "watch",
-                "run",
-                "--project",
-                "${workspaceFolder}/Server/Server.csproj"
+                "entry.ps1",
+                "watch"
             ],
             "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "format",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "csharpier",
-                "."
-            ],
         }
     ]
 }

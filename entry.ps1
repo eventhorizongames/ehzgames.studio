@@ -42,11 +42,11 @@ switch ($Command) {
         dotnet run --project $serverProject
     }
     "format" { 
-        dotnet csharpier .
+        csharpier format .
     }
     "check" {
         dotnet build --no-incremental -c $Configuration
-        dotnet csharpier --check .
+        csharpier check .
     }
     "test" { 
         # dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./lcov.info $testsProject
